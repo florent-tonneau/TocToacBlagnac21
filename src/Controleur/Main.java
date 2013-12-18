@@ -1,15 +1,15 @@
 package Controleur;
 
-import Vue.MaFen;
+import Vue.VueMembre;
 
 public class Main {
 
 	
 	public static void main(String[] args) {
 		
-		MaFen laFen;
+		VueMembre laFen;
 		
-		laFen = new  MaFen("TocTOAC",2,2,250,250);
+		laFen = new  VueMembre("TocTOAC",2,2,250,250);
 		laFen.setLocationRelativeTo(null);
 		laFen.setVisible(true);
 	}
