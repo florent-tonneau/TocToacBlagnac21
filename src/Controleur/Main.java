@@ -9,7 +9,7 @@ public class Main {
 		
 		MaFen laFen;
 		
-		laFen = new  MaFen("TocTOAC",2,2,250,250);
+		laFen = new  MaFen("TocTOAC");
 		laFen.setLocationRelativeTo(null);
 		laFen.setVisible(true);
 	}
