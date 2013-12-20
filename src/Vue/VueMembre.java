@@ -11,7 +11,8 @@ import javax.swing.JList;
 import javax.swing.JButton;
 
 import Controleur.CtrlListeAct;
-import Modele.Event;
+import Modele.Activite;
+//import Modele.Event;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -75,16 +76,17 @@ public class VueMembre extends JFrame implements ActionListener{
 	}
 
 	public void majVueMembre(){
-		String q;
-		Event e;
+		String s;
+		Activite a;
 		Vector<String> v = new Vector<String>();
 		
 		this.LS_Events.removeAll();
 		
 		for (int i =0; i<this.cla.getNbActivites(); i++)
 		{
-				e = this.cla.getListeActivites().get(i);
-				v.add(q);
+				a = this.cla.getListeActivite().get(i);
+				s = (a.getTitre() + a.getDate() + a.getHoraire());
+				v.add(s);
 		}
 		this.LS_Events.setListData(v);
 		
