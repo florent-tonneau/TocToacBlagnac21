@@ -1,9 +1,7 @@
 package Controleur;
 
-import java.awt.Event;
+import Modele.Event;
 import java.util.Vector;
-
-import Modele.Membre;
 
 public class CtrlListeAct {
 
@@ -25,12 +23,12 @@ public class CtrlListeAct {
 		this.listeA.remove(e);
 	}
 
-	public int getNbActivite()
+	public int getNbActivites()
 	{
 		return this.listeA.size();
 	}
 	
-	public Vector<Event> getListe()
+	public Vector<Event> getListeActivites()
 	{
 		return this.listeA;
 	}

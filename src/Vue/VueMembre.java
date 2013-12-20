@@ -9,8 +9,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.JButton;
+
+import Controleur.CtrlListeAct;
+import Modele.Event;
+
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
@@ -22,7 +27,7 @@ public class VueMembre extends JFrame implements ActionListener{
 	private JList LS_Events, LS_Participants;
 	private JButton btnAfficher, btnInscrire;
 	private JSplitPane SP_Back, SP_Left, SP_Right;
-	private ctrlListAct cla;
+	private CtrlListeAct cla;
 	//private ctrlListeActs cla;
 	
 	public VueMembre(String title, int x, int y, int l, int L) {
@@ -71,19 +76,26 @@ public class VueMembre extends JFrame implements ActionListener{
 
 	public void majVueMembre(){
 		String q;
+		Event e;
 		Vector<String> v = new Vector<String>();
 		
 		this.LS_Events.removeAll();
 		
 		for (int i =0; i<this.cla.getNbActivites(); i++)
 		{
-				q = this;
+				e = this.cla.getListeActivites().get(i);
 				v.add(q);
 		}
 		this.LS_Events.setListData(v);
 		
 		if(LS_Events.getSelectedIndex() != -1){
-			for(i = 0; i<this.cla.getNbParticipants())
+			//for(i = 0; i<this.cla.getNbParticipants())
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
