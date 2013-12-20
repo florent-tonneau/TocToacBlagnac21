@@ -1,3 +1,11 @@
+/**************************************************************
+ * Cette classe métier permet de définir 
+ * 
+ * 
+ * @author Florent TONNEAU
+ * @version 1.0
+ **************************************************************/
+
 package Modele;
 
 public class Membre {
