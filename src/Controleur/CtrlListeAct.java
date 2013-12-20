@@ -12,9 +12,13 @@ public class CtrlListeAct {
 	
 	public CtrlListeAct()
 	{
-		
 		this.listeA = new Vector<Activite>();
 		//listeA.add
+	}
+	
+	public void demarrerControleur(){
+		//à virer et remplacer par le main de Remi
+		this.vm = new VueMembre("Vue membre");
 	}
 	
 	public void addAct( Activite e)

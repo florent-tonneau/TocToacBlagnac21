@@ -31,10 +31,10 @@ public class VueMembre extends JFrame implements ActionListener{
 	private CtrlListeAct cla;
 	//private ctrlListeActs cla;
 	
-	public VueMembre(String title, int x, int y, int l, int L) {
+	public VueMembre(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(x, y, 640, 480);
+		setBounds(50, 50, 640, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
