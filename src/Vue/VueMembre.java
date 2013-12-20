@@ -11,18 +11,18 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
-public class VueMembre extends JFrame {
+public class VueMembre extends JFrame implements ActionListener{
 
+	private static final long serialVersionUID = -4738830974865641490L;
 	private JPanel contentPane;
 	private String title;
-	private JList LS_Events;
-	private JList LS_Participants;
-	private JButton btnAfficher;
-	private JButton btnInscrire;
-	private JSplitPane SP_Back;
-	private JSplitPane SP_Left;
-	private JSplitPane SP_Right;
+	private JList LS_Events, LS_Participants;
+	private JButton btnAfficher, btnInscrire;
+	private JSplitPane SP_Back, SP_Left, SP_Right;
+	private ctrlListAct cla;
 	//private ctrlListeActs cla;
 	
 	public VueMembre(String title, int x, int y, int l, int L) {
@@ -70,6 +70,20 @@ public class VueMembre extends JFrame {
 	}
 
 	public void majVueMembre(){
+		String q;
+		Vector<String> v = new Vector<String>();
 		
+		this.LS_Events.removeAll();
+		
+		for (int i =0; i<this.cla.getNbActivites(); i++)
+		{
+				q = this;
+				v.add(q);
+		}
+		this.LS_Events.setListData(v);
+		
+		if(LS_Events.getSelectedIndex() != -1){
+			for(i = 0; i<this.cla.getNbParticipants())
+		}
 	}
 }
