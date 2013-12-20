@@ -2,16 +2,19 @@ package Controleur;
 
 import java.util.Vector;
 import Modele.Activite;
+import Vue.VueMembre;
 
 
 public class CtrlListeAct {
 
 	private Vector<Activite> listeA;
+	private VueMembre vm;
 	
 	public CtrlListeAct()
 	{
 		
 		this.listeA = new Vector<Activite>();
+		//listeA.add
 	}
 	
 	public void addAct( Activite e)
