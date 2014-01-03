@@ -29,7 +29,6 @@ public class VueMembre extends JFrame implements ActionListener{
 	private JButton btnAfficher, btnInscrire;
 	private JSplitPane SP_Back, SP_Left, SP_Right;
 	private CtrlListeAct cla;
-	//private ctrlListeActs cla;
 	
 	public VueMembre(String title) {
 		super(title);
@@ -100,4 +99,5 @@ public class VueMembre extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

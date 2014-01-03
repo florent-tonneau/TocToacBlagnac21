@@ -2,6 +2,7 @@ package Controleur;
 
 import java.util.Vector;
 import Modele.Activite;
+import Modele.Membre;
 import Vue.VueMembre;
 
 
@@ -10,15 +11,16 @@ public class CtrlListeAct {
 	private Vector<Activite> listeA;
 	private VueMembre vm;
 	
+	
 	public CtrlListeAct()
 	{
-		this.listeA = new Vector<Activite>();
-		//listeA.add
+		this.listeA=new Vector<Activite>();
+		//this.listeA=;
 	}
 	
 	public void demarrerControleur(){
-		//à virer et remplacer par le main de Remi
 		this.vm = new VueMembre("Vue membre");
+		this.vm.setVisible(true); 		
 	}
 	
 	public void addAct( Activite e)
@@ -37,8 +39,16 @@ public class CtrlListeAct {
 	}
 	
 	public Vector<Activite> getListeActivite()
-
 	{
 		return this.listeA;
+	}
+	
+	public Vector<Membre> getMembreActivite (Activite _act) {
+			
+		for (int i=0; i<this.getNbActivites();i++) {
+			if ( this.listeA.elementAt(i).equals(_act))
+				return this.listeA.elementAt(i).getParticipants();
+		}
+		return null;		
 	}
 }
