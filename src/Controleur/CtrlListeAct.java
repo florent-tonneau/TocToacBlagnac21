@@ -15,17 +15,24 @@ public class CtrlListeAct {
 	public CtrlListeAct()
 	{
 		this.listeA=new Vector<Activite>();
-		//this.listeA=;
+		
+		Vector<Membre> membre = new Vector<Membre>();
+		membre.add(new Membre(1,"John"));
+		membre.add(new Membre(2,"Paul"));
+		Activite a1= new Activite("Event","21/21/21","18h",membre );
+		
+		this.addAct(a1);		
 	}
 	
 	public void demarrerControleur(){
-		this.vm = new VueMembre("Vue membre");
-		this.vm.setVisible(true); 		
+		this.vm = new VueMembre("Vue membre", this);
+		this.vm.setVisible(true);
+		this.vm.majVueMembre();
 	}
 	
 	public void addAct( Activite e)
 	{
-		this.listeA.add(e);
+		this.listeA.addElement(e);
 	}
 	
 	public void removeAct( Activite e)
@@ -50,5 +57,9 @@ public class CtrlListeAct {
 				return this.listeA.elementAt(i).getParticipants();
 		}
 		return null;		
+	}
+	
+	public void ctrlStopVueMembre() {
+		this.vm.setVisible(false);
 	}
 }

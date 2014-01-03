@@ -34,6 +34,7 @@ public class Activite {
 		this.date=_date;
 		this.horaire=_horaire;
 		this.titre=_titre;
+		participants = new Vector<Membre>();
 		
 		for (int i=0;i<_participants.size();i++)
 			participants.add(_participants.elementAt(i));

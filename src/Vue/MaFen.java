@@ -60,7 +60,7 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource().equals(this.getbListe()))
 		{
-			this.cp.ctrlConsultActivite();
+			this.cp.ctrlConsultActivite();			
 		}
 	}
 	
