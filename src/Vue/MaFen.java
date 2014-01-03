@@ -38,6 +38,7 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 		this.lTocToac.setVerticalAlignment(JLabel.CENTER);
 		
 		this.bListe.addActionListener(this);
+		this.addWindowListener(this);
 	}
 
 	public JLabel getlTocToac() {
