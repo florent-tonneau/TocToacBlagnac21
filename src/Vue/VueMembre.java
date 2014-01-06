@@ -139,12 +139,9 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener{
 				this.LS_Participants.setListData(v);
 				this.btnInscrire.setEnabled(true);
 				
-				if (membreCo ==false ) {
-					this.btnInscrire.setText("S'inscrire");
-				}
-				else {
+				if (membreCo ==true ) {	
 					this.btnInscrire.setText("Se désinscrire");
-				}
+				}	
 					
 			}
 		}

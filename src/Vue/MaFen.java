@@ -67,9 +67,6 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 		this.lTocToac = lTocToac;
 	}
 
-
-
-
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource().equals(this.bListe))
 		{

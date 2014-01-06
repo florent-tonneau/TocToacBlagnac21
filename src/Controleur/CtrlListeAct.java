@@ -1,5 +1,13 @@
 package Controleur;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.Vector;
 import Modele.Activite;
 import Modele.Membre;
@@ -10,19 +18,15 @@ public class CtrlListeAct {
 
 	private Vector<Activite> listeA;
 	private VueMembre vm;
-	private String nomMembre;
-	
+	private String nomMembre;	
 	
 	public CtrlListeAct(String _n)
 	{
-		this.listeA=new Vector<Activite>();
+		this.listeA=new Vector<Activite>();	
 		
-		Vector<Membre> membre = new Vector<Membre>();
-		membre.add(new Membre(1,"John"));
-		membre.add(new Membre(2,"Paul"));
-		Activite a1= new Activite("Event","21/21/21","18h",membre );
+			
+		chargerListeActivite();
 		
-		this.addAct(a1);		
 		this.nomMembre=_n;
 	}
 	
@@ -119,9 +123,70 @@ public class CtrlListeAct {
 	 * */
 	public void ctrlStopVueMembre() {
 		this.vm.setVisible(false);
+		this.vm.dispose();
 	}
 
 	public String getNomMembre() {
 		return nomMembre;
+	}
+	
+	private void chargerListeActivite (){
+					
+		Scanner scanner;
+		try {
+			
+			scanner = new Scanner(new FileReader("Activites"));
+			String str ;
+			String[] mots = null ;
+			Vector<Membre> membres=new Vector<Membre>();
+			
+			while (scanner.hasNextLine()) {
+			     str = scanner.nextLine();
+			     mots=str.split("@@");
+			     
+			     for ( int i=3; i<mots.length;i=i+2){
+			    	 membres.add(new Membre(Integer.parseInt(mots[i]), mots[i+1]));
+			     }
+			     
+			     this.listeA.add(new Activite(mots[0], mots[1], mots[2],membres ));
+			}
+			
+		} catch (FileNotFoundException e) {			
+			e.printStackTrace();
+		}	
+	}
+	
+	private void sauvegarderListeActivite (Vector<Activite> _act) {
+		File f=new File("Activites");
+		FileWriter fw;
+		
+		try {
+			
+			fw = new FileWriter(f);
+			BufferedWriter bw = new BufferedWriter ( fw ) ;
+			PrintWriter pw = new PrintWriter ( bw );
+			
+			for ( int i=0; i< this.listeA.size(); i++) {
+				pw.print(this.listeA.get(i).getTitre());
+				pw.print("@@");
+				pw.print(this.listeA.get(i).getDate());
+				pw.print("@@");
+				pw.print(this.listeA.get(i).getHoraire());
+				pw.print("@@");
+				
+				for ( int j=0; j<this.listeA.get(i).getParticipants().size();j++) {
+					pw.print(Integer.toString(this.listeA.get(i).getParticipants().get(j).getIdMembre()));
+					pw.print("@@");
+					pw.print(this.listeA.get(i).getParticipants().get(j).getNom());
+					pw.print("@@");
+				}
+				bw.newLine();
+			}
+			pw.close();
+			
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
+		
 	}
 }

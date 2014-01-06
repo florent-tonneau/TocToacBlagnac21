@@ -25,7 +25,7 @@ public class CtrlPrincipal {
 	
 	public void ctrlStopFen () {
 		JOptionPane confirm = new JOptionPane();
-		int retour = confirm.showConfirmDialog(null, "Voulez-vous quitter la fenetre principale ?");
+		int retour = confirm.showConfirmDialog(this.mf, "Voulez-vous quitter la fenetre principale ?");
 		if (retour == 0)
 		{
 			System.exit(0);	
