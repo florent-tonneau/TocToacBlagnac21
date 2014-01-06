@@ -10,6 +10,7 @@ public class CtrlListeAct {
 
 	private Vector<Activite> listeA;
 	private VueMembre vm;
+	private String nomMembre;
 	
 	
 	public CtrlListeAct()
@@ -117,5 +118,9 @@ public class CtrlListeAct {
 	 * */
 	public void ctrlStopVueMembre() {
 		this.vm.setVisible(false);
+	}
+
+	public String getNomMembre() {
+		return nomMembre;
 	}
 }
