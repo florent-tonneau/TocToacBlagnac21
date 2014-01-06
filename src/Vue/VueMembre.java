@@ -75,7 +75,8 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener{
 		LS_Participants = new JList();
 		SP_Right.setLeftComponent(LS_Participants);
 		
-		btnInscrire = new JButton("S'inscrire");
+		btnInscrire = new JButton();
+		btnInscrire.setEnabled(false);
 		SP_Right.setRightComponent(btnInscrire);
 		
 		this.btnAfficher.addActionListener(this);
@@ -118,8 +119,9 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener{
 			if(LS_Events.getSelectedIndex() != -1){
 				
 				Vector<String> v= new Vector<String>();
-				String s;
+				String s, membre = this.cla.getNomMembre();
 				Membre m;
+				boolean membreCo=false;
 				
 				Vector<Membre> vm= new Vector<Membre>(this.cla.getMembreActivite(this.cla.getListeActivite().elementAt(LS_Events.getSelectedIndex())));
 				
@@ -128,10 +130,22 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener{
 						m= vm.elementAt(i);
 						s = (m.getNom());
 						v.add(s);
+						
+						if ( membre.equals(m.getNom()))
+							membreCo=true;
 				}
 				
 				
 				this.LS_Participants.setListData(v);
+				this.btnInscrire.setEnabled(true);
+				
+				if (membreCo ==false ) {
+					this.btnInscrire.setText("S'inscrire");
+				}
+				else {
+					this.btnInscrire.setText("Se désinscrire");
+				}
+					
 			}
 		}
 	}
