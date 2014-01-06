@@ -13,7 +13,7 @@ public class CtrlListeAct {
 	private String nomMembre;
 	
 	
-	public CtrlListeAct()
+	public CtrlListeAct(String _n)
 	{
 		this.listeA=new Vector<Activite>();
 		
@@ -23,6 +23,7 @@ public class CtrlListeAct {
 		Activite a1= new Activite("Event","21/21/21","18h",membre );
 		
 		this.addAct(a1);		
+		this.nomMembre=_n;
 	}
 	
 	/**

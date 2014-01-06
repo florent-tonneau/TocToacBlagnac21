@@ -17,8 +17,8 @@ public class CtrlPrincipal {
 		mf.setVisible(true);
 	}
 	
-	public void ctrlConsultActivite () {
-		CtrlListeAct cla = new CtrlListeAct();
+	public void ctrlConsultActivite (String _nomMembre) {
+		CtrlListeAct cla = new CtrlListeAct(_nomMembre);
 		cla.demarrerControleur();
 		
 	}
