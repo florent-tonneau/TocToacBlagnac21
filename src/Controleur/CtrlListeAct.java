@@ -22,11 +22,9 @@ public class CtrlListeAct {
 	
 	public CtrlListeAct(String _n)
 	{
-		this.listeA=new Vector<Activite>();	
-		
-			
-		chargerListeActivite();
-		
+		vm=null;
+		this.listeA=new Vector<Activite>();			
+		chargerListeActivite();		
 		this.nomMembre=_n;
 	}
 	
@@ -41,7 +39,7 @@ public class CtrlListeAct {
 	public void demarrerControleur(){
 		this.vm = new VueMembre("Vue membre", this);
 		this.vm.setVisible(true);
-		this.vm.majVueMembre();
+		this.vm.majActivites();
 	}
 	
 	/**
@@ -104,13 +102,10 @@ public class CtrlListeAct {
 	 *Retour: une liste de membre
 	 *Précondition: l'activité doit exister
 	 * */
-	public Vector<Membre> getMembreActivite (Activite _act) {
-			
-		for (int i=0; i<this.getNbActivites();i++) {
-			if ( this.listeA.elementAt(i).equals(_act))
-				return this.listeA.elementAt(i).getParticipants();
-		}
-		return null;		
+	public Vector<Membre> getMembreActivite (int index) {
+		
+		return this.listeA.get(index).getParticipants();
+				
 	}
 	
 	/**
@@ -130,7 +125,7 @@ public class CtrlListeAct {
 		return nomMembre;
 	}
 	
-	private void chargerListeActivite (){
+	public void chargerListeActivite (){
 					
 		Scanner scanner;
 		try {
@@ -149,6 +144,7 @@ public class CtrlListeAct {
 			     }
 			     
 			     this.listeA.add(new Activite(mots[0], mots[1], mots[2],membres ));
+			     membres.removeAllElements();
 			}
 			
 		} catch (FileNotFoundException e) {			
@@ -156,7 +152,7 @@ public class CtrlListeAct {
 		}	
 	}
 	
-	private void sauvegarderListeActivite (Vector<Activite> _act) {
+	public void sauvegarderListeActivite (Vector<Activite> _act) {
 		File f=new File("Activites");
 		FileWriter fw;
 		
@@ -188,5 +184,24 @@ public class CtrlListeAct {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void desinscrireMembre(int index) {
+		
+		int indexMembre=-1;
+		
+		for (int i=0; i<this.listeA.get(index).getParticipants().size();i++)
+			if ( this.listeA.get(index).getParticipants().get(i).getNom().equals(this.nomMembre))
+				indexMembre=i;
+		
+		this.listeA.get(index).getParticipants().remove(indexMembre);
+		this.sauvegarderListeActivite(listeA);
+		this.vm.majMembres();
+	}
+
+	public void inscrireMembre(int index) {
+		this.listeA.get(index).getParticipants().add(new Membre(this.listeA.get(index).getParticipants().size()+1,this.nomMembre));
+		this.sauvegarderListeActivite(listeA);
+		this.vm.majMembres();
 	}
 }

@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Controleur.CtrlPrincipal;
@@ -18,7 +19,7 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 	private CtrlPrincipal cp;
 	private JLabel lTocToac;
 	private JButton bListe;
-	private JTextField TField;
+	private JTextField tField;
 	public MaFen (String _t, CtrlPrincipal _cp)
 	{
 		super (_t);
@@ -30,11 +31,12 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 		this.setSize(400, 400);
 		this.bListe = new JButton("Consulter la liste des activités");
 		this.lTocToac = new JLabel("TocToac");
-		this.TField = new JTextField();
+		this.tField = new JTextField();
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		//Ajout des boutons à la fenêtre
 		this.add(this.bListe, BorderLayout.SOUTH);
+		this.add(tField, BorderLayout.NORTH);
 		this.add(this.lTocToac, BorderLayout.CENTER);
 		this.lTocToac.setHorizontalAlignment(JLabel.CENTER);
 		this.lTocToac.setVerticalAlignment(JLabel.CENTER);
@@ -68,9 +70,14 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource().equals(this.bListe))
+		if (arg0.getSource().equals(this.bListe) && ! tField.getText().equals(""))
 		{
-			this.cp.ctrlConsultActivite(TField.getText());			
+			this.cp.ctrlConsultActivite(tField.getText());			
+		}
+		else {
+			if (arg0.getSource().equals(this.bListe)) {
+				JOptionPane.showMessageDialog(this, "Le nom de l'utilisateur doit être renseigné pour pouvoir continuer.", "Attention !", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	
