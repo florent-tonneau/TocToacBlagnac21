@@ -25,6 +25,10 @@ import javax.swing.JButton;
 
 import Controleur.CtrlPrincipal;
 
+/**
+ * @author Groupe1
+ *
+ */
 public class FenPrincipale extends JFrame implements ActionListener, WindowListener{
 
 	private CtrlPrincipal cp;
@@ -32,12 +36,19 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 	private JTextField textField;
 	private JButton btnConsulterLaListe;
 	private JButton btnConnexion;
-	private JLabel label;
-	private JLabel label_1;
+	private JLabel lbIdentifiant;
+	private JLabel lbRoles;
 	private JComboBox<String> comboBox;
 	private JPanel panel;
 	private JSplitPane splitPane;
 
+	
+	/**
+	 * Créée Une fenêtre principale avec son titre et son contrôleur
+	 * 
+	 * @param _t
+	 * @param _cp
+	 */
 	public FenPrincipale(String _t, CtrlPrincipal _cp) {
 		super (_t);
 		this.cp=_cp;
@@ -49,7 +60,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		btnConsulterLaListe = new JButton("Consulter la liste des Activit\u00E9s");
+		btnConsulterLaListe = new JButton("Consulter la liste des Activités");
 		contentPane.add(btnConsulterLaListe, BorderLayout.SOUTH);
 		btnConsulterLaListe.setEnabled(false);
 		btnConsulterLaListe.addActionListener(this);
@@ -66,17 +77,17 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		splitPane.setLeftComponent(panel);
 		panel.setLayout(new GridLayout(2, 2, 0, 0));
 		
-		label = new JLabel("Identifiant :");
-		panel.add(label);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
+		lbIdentifiant = new JLabel("Identifiant :");
+		panel.add(lbIdentifiant);
+		lbIdentifiant.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		panel.add(textField);
 		
-		label_1 = new JLabel("Rôle :");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_1);
+		lbRoles = new JLabel("Rôle :");
+		lbRoles.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lbRoles);
 		
 		Vector<String> vroles = new Vector<String>();
 		vroles.add("Sportif");
@@ -87,6 +98,9 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
+		/**
+		 * Si le champ d'identification est vide, un message d'erreur s'affiche
+		 */
 		if ((arg0.getSource().equals(btnConnexion) || arg0.getSource().equals(this.btnConsulterLaListe))
 				&&  textField.getText().equals("")){
 			JOptionPane.showMessageDialog(this, 
