@@ -45,30 +45,6 @@ public class MaFen extends JFrame implements ActionListener, WindowListener{
 		this.addWindowListener(this);
 	}
 
-	/**
-	 *Nom: getlTocToac
-	 *Description: retourne le JLabel lTocToac
-	 *Entrée: -
-	 *Sortie: -
-	 *Retour: JLabel lTocToac
-	 *Précondition: -
-	 * */
-	public JLabel getlTocToac() {
-		return lTocToac;
-	}
-
-	/**
-	 *Nom: setlTocToac
-	 *Description: Met à jour le JLabel lTocToac
-	 *Entrée: JLabel lTocToac
-	 *Sortie: lTocToac mis à jour
-	 *Retour: -
-	 *Précondition: -
-	 * */
-	public void setlTocToac(JLabel lTocToac) {
-		this.lTocToac = lTocToac;
-	}
-
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource().equals(this.bListe) && ! tField.getText().equals(""))
 		{

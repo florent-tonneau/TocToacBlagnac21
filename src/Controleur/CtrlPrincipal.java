@@ -6,15 +6,16 @@ import javax.swing.JOptionPane;
 
 import Modele.Activite;
 import Modele.Membre;
+import Vue.FenPrincipale;
 import Vue.MaFen;
 
 public class CtrlPrincipal {
 
-	private MaFen mf;
+	private FenPrincipale fp;
 	
 	public CtrlPrincipal ( ) {
-		mf=new MaFen("TocToac - Menu Principal", this);
-		mf.setVisible(true);
+		fp=new FenPrincipale("TocToac - Menu Principal", this);
+		fp.setVisible(true);
 	}
 	
 	public void ctrlConsultActivite (String _nomMembre) {
@@ -25,7 +26,7 @@ public class CtrlPrincipal {
 	
 	public void ctrlStopFen () {
 		JOptionPane confirm = new JOptionPane();
-		int retour = confirm.showConfirmDialog(this.mf, "Voulez-vous quitter la fenetre principale ?");
+		int retour = confirm.showConfirmDialog(this.fp, "Voulez-vous quitter la fenetre principale ?");
 		if (retour == 0)
 		{
 			System.exit(0);	
