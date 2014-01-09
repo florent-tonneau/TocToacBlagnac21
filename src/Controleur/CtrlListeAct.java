@@ -121,10 +121,26 @@ public class CtrlListeAct {
 		this.vm.dispose();
 	}
 
+	/**
+	 *Nom: getNomMembre
+	 *Description: permet d'obtenir le nom du membre qui utilise le programme
+	 *Entrée: -
+	 *Sortie: -
+	 *Retour: String
+	 *Précondition: -
+	 * */
 	public String getNomMembre() {
 		return nomMembre;
 	}
 	
+	/**
+	 *Nom: chargerListeActivite
+	 *Description: permet de charger d'un fichier les activités et les membres qui sont inscrits à ceux-ci.
+	 *Entrée: -
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: Le fichier "Activites" existe et se trouve dans le répertoire courant du projet
+	 * */
 	public void chargerListeActivite (){
 					
 		Scanner scanner;
@@ -152,6 +168,15 @@ public class CtrlListeAct {
 		}	
 	}
 	
+	/**
+	 *Nom: sauvegarderListeActivite
+	 *Description: permet de sauvegarder les activités et les membres qui sont inscrits à ces activités, dans 
+	 * 				un fichier nommé "Activites".
+	 *Entrée: Vector<Activite> activités 
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: -
+	 * */
 	public void sauvegarderListeActivite (Vector<Activite> _act) {
 		File f=new File("Activites");
 		FileWriter fw;
@@ -186,6 +211,14 @@ public class CtrlListeAct {
 		
 	}
 
+	/**
+	 *Nom: desinscrireMembre
+	 *Description: permet de désinscrire un membre d'une activité
+	 *Entrée: index de l'activité
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: Le membre a désinscrire est dans la liste des membres de l'activité correspondante à l'index.
+	 * */
 	public void desinscrireMembre(int index) {
 		
 		int indexMembre=-1;
@@ -199,6 +232,14 @@ public class CtrlListeAct {
 		this.vm.majMembres();
 	}
 
+	/**
+	 *Nom: inscrireMembre
+	 *Description: permet d'inscrire l'utilisateur comme membre de l'activité référencée par l'index 
+	 *Entrée: index de l'activité
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: L'utilisateur ne doit pas etre déjà inscrit
+	 * */
 	public void inscrireMembre(int index) {
 		this.listeA.get(index).getParticipants().add(new Membre(this.listeA.get(index).getParticipants().size()+1,this.nomMembre));
 		this.sauvegarderListeActivite(listeA);

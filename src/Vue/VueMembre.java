@@ -1,3 +1,11 @@
+/*****************************************
+ * Cette classe permet de créer une fenetre de visualisation pour un membre des 
+ * activités et des membres qui y sont inscrits. Il peut aussi s'inscrire et se 
+ * désinscrire de ces événements.
+ * 
+ * @author Florent TONNEAU & Vincent MONTARIOL
+ * @version 1.0
+ */
 package Vue;
 
 import java.awt.BorderLayout;
@@ -28,12 +36,23 @@ import java.util.Vector;
 
 public class VueMembre extends JFrame implements ActionListener, WindowListener, MouseListener{
 
+	//--------------------Attributs-------------------------
+	
 	private static final long serialVersionUID = -4738830974865641490L;
 	private JList LS_Events, LS_Participants;
 	private JButton btnAfficher, btnInscrire;
 	private JSplitPane SP_Back, SP_Left, SP_Right;
 	private CtrlListeAct cla;
 	
+	//---------------------Constructeurs---------------------------
+	/**
+	 *Nom: VueMembre
+	 *Description: permet de créer la fenetre de visualisation des activités et des membres inscrits à ceux-ci. 
+	 *Entrée: titre de la fenetre, controleur
+	 *Sortie: 
+	 *Retour: fenetre initialisé
+	 *Précondition: Le controleur a initialisé sa liste d'activités et de membres
+	 * */
 	public VueMembre(String title, CtrlListeAct _cla) {
 		super(title);
 		this.cla=_cla;
@@ -79,20 +98,24 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 		btnInscrire.setEnabled(false);
 		SP_Right.setRightComponent(btnInscrire);
 		
+		//Abonnements
 		this.btnAfficher.addActionListener(this);
 		this.btnInscrire.addActionListener(this);
 		this.LS_Events.addMouseListener(this);
 		this.addWindowListener(this);
 	}
 
-	public JButton getBtnAfficher() {
-		return btnAfficher;
-	}
 
-	public JButton getBtnInscrire() {
-		return btnInscrire;
-	}
-
+	//-----------------------------Methodes---------------------------------
+	
+	/**
+	 *Nom: majActivites
+	 *Description:  permet de mettre à jour la liste des activités 
+	 *Entrée: -
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: la liste des activités doit etre initialisée dans le controleur
+	 * */
 	public void majActivites(){
 		String s;
 		Activite a;
@@ -113,21 +136,24 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 	}
 
 	
-	public void actionPerformed(ActionEvent arg0) {		
+	public void actionPerformed(ActionEvent arg0) {	
+		//Si l'utilisateur clique sur le bouton afficher membres
 		if ( arg0.getSource().equals(this.btnAfficher)){
 			this.majMembres();
 			this.btnInscrire.setEnabled(true);	
 		}
 		else {
+			//Si l'utilisateur clique sur le bouton d'inscription et que son libelle est "S'inscrire"
 			if (arg0.getSource().equals(this.btnInscrire) && this.btnInscrire.getText().equals("S'inscrire")) {
 				this.cla.inscrireMembre(this.LS_Events.getSelectedIndex());
 				this.btnInscrire.setText("Se désinscrire");
 			}
 			else {
+				//Si l'utilisateur clique sur le bouton d'inscription et que son libelle est "Se désinscrire"
 				if (arg0.getSource().equals(this.btnInscrire) ) {
 					this.cla.desinscrireMembre(this.LS_Events.getSelectedIndex());
 					this.btnInscrire.setText("S'inscrire");
-				}
+				}				
 			}
 		}
 		
@@ -144,20 +170,27 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 	public void windowIconified(WindowEvent arg0) {}	
 	public void windowOpened(WindowEvent arg0) {}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (this.btnInscrire.isEnabled()){		
-		
-			this.majMembres();
-		}
-	}
-
-	
+	public void mouseClicked(MouseEvent e) {}	
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
 	
+	public void mouseReleased(MouseEvent e) {
+		//Si l'utilisateur a sélectionné un élément de la liste d'activités et que une liste de membres est déjà affichée
+		if (this.btnInscrire.isEnabled() ){		
+			
+			this.majMembres();
+		}
+	}
+	
+	/**
+	 *Nom: majMembres
+	 *Description: permet de mettre à jour la liste des membres 
+	 *Entrée: -
+	 *Sortie: -
+	 *Retour: -
+	 *Précondition: la liste des activités doit etre initialisée dans le controleur
+	 * */
 	public void majMembres(){
 		this.LS_Participants.removeAll();		
 			
@@ -175,6 +208,7 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 					membreInscrit=true;					
 		}	
 		
+		//Si l'utilisateur fait déjà parti des membres inscrits à l'activité
 		if ( membreInscrit == true)
 			this.btnInscrire.setText("Se désinscrire");
 		else
