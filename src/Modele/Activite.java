@@ -14,12 +14,18 @@ public class Activite {
 	//----------------------------Attributs------------------------
 	// Date de l'événement
 	private String date;
+	
 	// Horaire de l'événement
 	private String horaire;
+	
 	//Titre de l'activité
 	private String titre;
+	
 	//Liste des participants
 	private Vector<Membre> participants;
+	
+	//Type de l'événement
+	private boolean entrainement;	
 	
 	//-----------------------Constructeur----------------------------
 	/**
@@ -30,10 +36,11 @@ public class Activite {
 	 * @param _horaire horaire de l'activité
 	 * @param _participants liste des participants
 	 */
-	public Activite(String _titre, String _date, String _horaire, Vector <Membre> _participants){
+	public Activite(String _titre, String _date, String _horaire, Vector <Membre> _participants, boolean _entrainement){
 		this.date=_date;
 		this.horaire=_horaire;
 		this.titre=_titre;
+		this.entrainement=_entrainement;
 		participants = new Vector<Membre>();
 		
 		for (int i=0;i<_participants.size();i++)
@@ -105,12 +112,21 @@ public class Activite {
 	}
 
 	/**
-	 * Permet de d'ajouter un membre à l'événement.
+	 * Permet d'ajouter un membre à l'événement.
 	 * 
 	 * @param participant Membre
 	 */
 	public void addParticipant(Membre participant) {
 		this.participants.add(participant);
+	}
+
+	/**
+	 * Permet de savoir si l'activité est un entrainement
+	 * 
+	 * @return true si c'est un entrainement sinon false
+	 */
+	public boolean isEntrainement() {
+		return entrainement;
 	}
 	
 	

@@ -155,11 +155,11 @@ public class CtrlListeAct {
 			     str = scanner.nextLine();
 			     mots=str.split("@@");
 			     
-			     for ( int i=3; i<mots.length;i=i+2){
+			     for ( int i=4; i<mots.length;i=i+2){
 			    	 membres.add(new Membre(Integer.parseInt(mots[i]), mots[i+1]));
 			     }
 			     
-			     this.listeA.add(new Activite(mots[0], mots[1], mots[2],membres ));
+			     this.listeA.add(new Activite(mots[0], mots[1], mots[2],membres, Boolean.parseBoolean(mots[3]) ));
 			     membres.removeAllElements();
 			}
 			
@@ -181,18 +181,20 @@ public class CtrlListeAct {
 		File f=new File("Activites");
 		FileWriter fw;
 		
-		try {
-			
+		try {			
 			fw = new FileWriter(f);
 			BufferedWriter bw = new BufferedWriter ( fw ) ;
 			PrintWriter pw = new PrintWriter ( bw );
 			
 			for ( int i=0; i< this.listeA.size(); i++) {
+				
 				pw.print(this.listeA.get(i).getTitre());
 				pw.print("@@");
 				pw.print(this.listeA.get(i).getDate());
 				pw.print("@@");
 				pw.print(this.listeA.get(i).getHoraire());
+				pw.print("@@");
+				pw.print(this.listeA.get(i).isEntrainement());
 				pw.print("@@");
 				
 				for ( int j=0; j<this.listeA.get(i).getParticipants().size();j++) {

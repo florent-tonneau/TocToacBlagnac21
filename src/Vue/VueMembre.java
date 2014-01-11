@@ -127,7 +127,10 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 		for (int i =0; i<this.cla.getListeActivite().size(); i++)
 		{
 				a = this.cla.getListeActivite().get(i);
-				s = (a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
+				if(a.isEntrainement() == true)
+					s = ("Entraînement "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
+				else
+					s = ("Ponctuel "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
 				v.add(s);
 		}
 		
