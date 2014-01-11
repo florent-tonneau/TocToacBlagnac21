@@ -35,6 +35,7 @@ public class Activite {
 	 * @param _date date de l'activité
 	 * @param _horaire horaire de l'activité
 	 * @param _participants liste des participants
+	 * @param _entrainement booleen true si c'est un entrainement
 	 */
 	public Activite(String _titre, String _date, String _horaire, Vector <Membre> _participants, boolean _entrainement){
 		this.date=_date;
