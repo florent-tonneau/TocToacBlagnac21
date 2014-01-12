@@ -69,6 +69,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		btnEditerAct = new JButton("Editer les Activit\u00E9s");
 		btnEditerAct.setEnabled(false);
 		JP_Boutons.add(btnEditerAct);
+		btnEditerAct.addActionListener(this);
 		
 		btnConsulterListe = new JButton("Consulter la liste des Activités");
 		JP_Boutons.add(btnConsulterListe);
@@ -134,7 +135,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 				this.cp.ctrlConsultActivite(textField.getText());
 			}
 			if (arg0.getSource().equals(this.btnEditerAct)){
-				
+				this.cp.ctrlEditerActivite();
 			}
 		}
 	}

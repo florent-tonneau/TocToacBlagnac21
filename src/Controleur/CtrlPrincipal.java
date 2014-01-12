@@ -21,7 +21,11 @@ public class CtrlPrincipal {
 	public void ctrlConsultActivite (String _nomMembre) {
 		CtrlListeAct cla = new CtrlListeAct(_nomMembre);
 		cla.demarrerControleur();
-		
+	}
+	
+	public void ctrlEditerActivite (){
+		CtrlEditerAct cea = new CtrlEditerAct();
+		cea.demarrerControleurEditerAct();
 	}
 	
 	public void ctrlStopFen () {
