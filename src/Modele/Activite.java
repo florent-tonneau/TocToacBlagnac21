@@ -25,7 +25,7 @@ public class Activite {
 	private Vector<Membre> participants;
 	
 	//Type de l'événement
-	private boolean entrainement;	
+	private boolean entrainement;
 	
 	//-----------------------Constructeur----------------------------
 	/**

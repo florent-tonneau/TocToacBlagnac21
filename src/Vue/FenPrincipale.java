@@ -34,13 +34,15 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 	private CtrlPrincipal cp;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JButton btnConsulterLaListe;
+	private JButton btnConsulterListe;
 	private JButton btnConnexion;
 	private JLabel lbIdentifiant;
 	private JLabel lbRoles;
 	private JComboBox<String> comboBox;
 	private JPanel panel;
 	private JSplitPane splitPane;
+	private JPanel JP_Boutons;
+	private JButton btnEditerAct;
 
 	
 	/**
@@ -60,10 +62,18 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		btnConsulterLaListe = new JButton("Consulter la liste des Activités");
-		contentPane.add(btnConsulterLaListe, BorderLayout.SOUTH);
-		btnConsulterLaListe.setEnabled(false);
-		btnConsulterLaListe.addActionListener(this);
+		JP_Boutons = new JPanel();
+		contentPane.add(JP_Boutons, BorderLayout.CENTER);
+		JP_Boutons.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		btnEditerAct = new JButton("Editer les Activit\u00E9s");
+		btnEditerAct.setEnabled(false);
+		JP_Boutons.add(btnEditerAct);
+		
+		btnConsulterListe = new JButton("Consulter la liste des Activités");
+		JP_Boutons.add(btnConsulterListe);
+		btnConsulterListe.setEnabled(false);
+		btnConsulterListe.addActionListener(this);
 		
 		splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -101,7 +111,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		/**
 		 * Si le champ d'identification est vide, un message d'erreur s'affiche
 		 */
-		if ((arg0.getSource().equals(btnConnexion) || arg0.getSource().equals(this.btnConsulterLaListe))
+		if ((arg0.getSource().equals(btnConnexion) || arg0.getSource().equals(this.btnConsulterListe))
 				&&  textField.getText().equals("")){
 			JOptionPane.showMessageDialog(this, 
 					"Le nom de l'utilisateur doit être renseigné pour pouvoir continuer.",
@@ -109,19 +119,22 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		}
 		else if (arg0.getSource().equals(btnConnexion)){
 			if(comboBox.getSelectedIndex() == 0){//Sportif
-				btnConsulterLaListe.setEnabled(true);
+				btnConsulterListe.setEnabled(true);
 			}
 			else if(comboBox.getSelectedIndex() == 1){//Entraineur
-				btnConsulterLaListe.setEnabled(true);
+				btnConsulterListe.setEnabled(true);
+				btnEditerAct.setEnabled(true);
 			}
 			else{//Admin
-				btnConsulterLaListe.setEnabled(true);
+				btnConsulterListe.setEnabled(true);
 			}
 		}
 		else {
-			if (arg0.getSource().equals(this.btnConsulterLaListe)) {
+			if (arg0.getSource().equals(this.btnConsulterListe)) {
 				this.cp.ctrlConsultActivite(textField.getText());
-			
+			}
+			if (arg0.getSource().equals(this.btnEditerAct)){
+				
 			}
 		}
 	}
