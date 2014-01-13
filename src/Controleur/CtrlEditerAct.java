@@ -38,6 +38,7 @@ public class CtrlEditerAct {
 		this.vea = new VueEditerActivites("Edition", this);
 		this.vea.setVisible(true);
 		this.vea.majListeActivites();
+		this.vea.majActivite();
 	}
 	
 	/**
