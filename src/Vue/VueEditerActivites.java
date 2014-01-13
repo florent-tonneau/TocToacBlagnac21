@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
@@ -19,11 +21,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 
+import sun.org.mozilla.javascript.internal.ast.NewExpression;
+
 import Controleur.CtrlEditerAct;
 import Controleur.CtrlListeAct;
 import Modele.Activite;
+import Modele.Membre;
 
-public class VueEditerActivites extends JFrame implements ActionListener, WindowListener{
+public class VueEditerActivites extends JFrame implements ActionListener, WindowListener, MouseListener{
 
 	private JPanel contentPane;
 	private JTextField txtTitre, textDate, txtHoraire;
@@ -31,7 +36,8 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 	private JList LS_Events;
 	private JButton btnSauvegarder, btnAnnuler;
 	private CtrlEditerAct cea;
-	private JButton btnAfficher, btnNouveau;
+	private JButton btnSupprimer, btnNouveau;
+	private JSplitPane SP_Edition, SP_Central;
 
 	public VueEditerActivites(String _title, CtrlEditerAct _cea) {
 		super(_title);
@@ -43,14 +49,15 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JSplitPane SP_Central = new JSplitPane();
+		SP_Central = new JSplitPane();
 		SP_Central.setEnabled(false);
 		contentPane.add(SP_Central, BorderLayout.CENTER);
 		
 		LS_Events = new JList();
 		SP_Central.setLeftComponent(LS_Events);
+		LS_Events.addMouseListener(this);
 		
-		JSplitPane SP_Edition = new JSplitPane();
+		SP_Edition = new JSplitPane();
 		SP_Edition.setEnabled(false);
 		SP_Edition.setResizeWeight(0.2);
 		SP_Central.setRightComponent(SP_Edition);
@@ -80,7 +87,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		JP_Champs.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		txtTitre = new JTextField();
-		txtTitre.setText("Entrez le nom de l'activit\u00E9 ...");
+		txtTitre.setText("Titre");
 		JP_Champs.add(txtTitre);
 		txtTitre.setColumns(10);
 		
@@ -112,6 +119,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		btnSauvegarder = new JButton("Sauvegarder");
 		SP_SauvAnn.setLeftComponent(btnSauvegarder);
 		btnSauvegarder.addActionListener(this);
+		btnSauvegarder.setEnabled(false);
 		
 		btnAnnuler = new JButton("Annuler");
 		SP_SauvAnn.setRightComponent(btnAnnuler);
@@ -122,9 +130,9 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		SP_AffNouv.setEnabled(false);
 		SP_BotBoutons.setLeftComponent(SP_AffNouv);
 		
-		btnAfficher = new JButton("Afficher");
-		SP_AffNouv.setLeftComponent(btnAfficher);
-		btnAfficher.addActionListener(this);
+		btnSupprimer = new JButton("Supprimer");
+		SP_AffNouv.setLeftComponent(btnSupprimer);
+		btnSupprimer.addActionListener(this);
 		
 		btnNouveau = new JButton("Nouveau");
 		SP_AffNouv.setRightComponent(btnNouveau);
@@ -158,19 +166,9 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 	public void windowIconified(WindowEvent e) {}
 	public void windowOpened(WindowEvent e) {}
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource().equals(this.btnAfficher)){
-			Activite ac;
-			ac = cea.getListeActivite().get(LS_Events.getSelectedIndex());
+		if(ae.getSource().equals(this.btnSupprimer)){
+			cea.getListeActivite().removeElementAt(LS_Events.getSelectedIndex());
 			
-			this.txtTitre.setText(ac.getTitre());
-			this.textDate.setText(ac.getDate());
-			this.txtHoraire.setText(ac.getHoraire());
-			if(ac.isEntrainement()){
-				this.CB_Entrainement.setSelected(true);
-			}
-			else{
-				this.CB_Entrainement.setSelected(false);
-			}
 		}
 		if(ae.getSource().equals(this.btnAnnuler)){
 			this.setVisible(false);
@@ -182,6 +180,48 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 			ac.setTitre(this.txtTitre.getText());
 			ac.setDate(this.textDate.getText());
 			ac.setHoraire(this.txtHoraire.getText());
+			ac.setEntrainement(this.CB_Entrainement.isSelected());
+			majListeActivites();
 		}
+		if(ae.getSource().equals(this.btnNouveau)){
+			SP_Edition.setVisible(true);
+			Activite ac;
+			ac = new Activite("Titre", "JJ/MM/YYYY", "HH:MM", new Vector<Membre>(), true);
+			
+			this.txtTitre.setText(ac.getTitre());
+			this.textDate.setText(ac.getDate());
+			this.txtHoraire.setText(ac.getHoraire());
+			if(ac.isEntrainement()){
+				this.CB_Entrainement.setSelected(true);
+			}
+			else{
+				this.CB_Entrainement.setSelected(false);
+			}
+			majListeActivites();
+		}
+	}
+	
+	public void mouseClicked(MouseEvent arg0) {}
+	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent arg0) {
+		this.majActivite();
+	}
+	
+	public void majActivite(){
+		Activite ac;
+		ac = cea.getListeActivite().get(LS_Events.getSelectedIndex());
+		
+		this.txtTitre.setText(ac.getTitre());
+		this.textDate.setText(ac.getDate());
+		this.txtHoraire.setText(ac.getHoraire());
+		if(ac.isEntrainement()){
+			this.CB_Entrainement.setSelected(true);
+		}
+		else{
+			this.CB_Entrainement.setSelected(false);
+		}
+		btnSauvegarder.setEnabled(true);
 	}
 }
