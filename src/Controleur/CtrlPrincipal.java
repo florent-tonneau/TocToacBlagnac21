@@ -1,13 +1,8 @@
 package Controleur;
 
-import java.util.Vector;
-
 import javax.swing.JOptionPane;
 
-import Modele.Activite;
-import Modele.Membre;
 import Vue.FenPrincipale;
-import Vue.MaFen;
 
 public class CtrlPrincipal {
 

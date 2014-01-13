@@ -129,6 +129,17 @@ public class Activite {
 	public boolean isEntrainement() {
 		return entrainement;
 	}
+
+	/**
+	 * Permet de changer si l'activité est un entrainement ou non
+	 * 
+	 * @param true si c'est un entrainement sinon false 
+	 */
+	public void setEntrainement(boolean entrainement) {
+		this.entrainement = entrainement;
+	}
+	
+	
 	
 	
 }
