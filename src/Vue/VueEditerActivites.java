@@ -26,16 +26,12 @@ import Modele.Activite;
 public class VueEditerActivites extends JFrame implements ActionListener, WindowListener{
 
 	private JPanel contentPane;
-	private JTextField txtTitre;
-	private JTextField textDate;
-	private JTextField txtHoraire;
+	private JTextField txtTitre, textDate, txtHoraire;
 	private JCheckBox CB_Entrainement;
 	private JList LS_Events;
-	private JButton btnSauvegarder;
-	private JButton btnAnnuler;
+	private JButton btnSauvegarder, btnAnnuler;
 	private CtrlEditerAct cea;
-	private JButton btnAfficher;
-	private JButton btnNouveau;
+	private JButton btnAfficher, btnNouveau;
 
 	public VueEditerActivites(String _title, CtrlEditerAct _cea) {
 		super(_title);
@@ -47,20 +43,20 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setEnabled(false);
-		contentPane.add(splitPane, BorderLayout.CENTER);
+		JSplitPane SP_Central = new JSplitPane();
+		SP_Central.setEnabled(false);
+		contentPane.add(SP_Central, BorderLayout.CENTER);
 		
 		LS_Events = new JList();
-		splitPane.setLeftComponent(LS_Events);
+		SP_Central.setLeftComponent(LS_Events);
 		
-		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setEnabled(false);
-		splitPane_1.setResizeWeight(0.2);
-		splitPane.setRightComponent(splitPane_1);
+		JSplitPane SP_Edition = new JSplitPane();
+		SP_Edition.setEnabled(false);
+		SP_Edition.setResizeWeight(0.2);
+		SP_Central.setRightComponent(SP_Edition);
 		
 		JPanel JP_labels = new JPanel();
-		splitPane_1.setLeftComponent(JP_labels);
+		SP_Edition.setLeftComponent(JP_labels);
 		JP_labels.setLayout(new GridLayout(4, 1, 0, 0));
 		
 		JLabel lblTitre = new JLabel("Titre :");
@@ -80,7 +76,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		JP_labels.add(lblType);
 		
 		JPanel JP_Champs = new JPanel();
-		splitPane_1.setRightComponent(JP_Champs);
+		SP_Edition.setRightComponent(JP_Champs);
 		JP_Champs.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		txtTitre = new JTextField();
@@ -104,13 +100,13 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		JP_Champs.add(CB_Entrainement);
 		
 		JSplitPane SP_BotBoutons = new JSplitPane();
-		SP_BotBoutons.setResizeWeight(0.2);
+		SP_BotBoutons.setResizeWeight(0.5);
 		SP_BotBoutons.setEnabled(false);
 		contentPane.add(SP_BotBoutons, BorderLayout.SOUTH);
 		
 		JSplitPane SP_SauvAnn = new JSplitPane();
 		SP_SauvAnn.setEnabled(false);
-		SP_SauvAnn.setResizeWeight(0.5);
+		SP_SauvAnn.setResizeWeight(0.4);
 		SP_BotBoutons.setRightComponent(SP_SauvAnn);
 		
 		btnSauvegarder = new JButton("Sauvegarder");
@@ -122,6 +118,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 		btnAnnuler.addActionListener(this);
 		
 		JSplitPane SP_AffNouv = new JSplitPane();
+		SP_AffNouv.setResizeWeight(0.5);
 		SP_AffNouv.setEnabled(false);
 		SP_BotBoutons.setLeftComponent(SP_AffNouv);
 		
@@ -150,9 +147,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 					s = ("Ponctuel "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
 				v.add(s);
 		}
-		
 		this.LS_Events.setListData(v);
-		
 	}
 
 	public void windowActivated(WindowEvent e) {}
@@ -164,7 +159,29 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 	public void windowOpened(WindowEvent e) {}
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource().equals(this.btnAfficher)){
+			Activite ac;
+			ac = cea.getListeActivite().get(LS_Events.getSelectedIndex());
 			
+			this.txtTitre.setText(ac.getTitre());
+			this.textDate.setText(ac.getDate());
+			this.txtHoraire.setText(ac.getHoraire());
+			if(ac.isEntrainement()){
+				this.CB_Entrainement.setSelected(true);
+			}
+			else{
+				this.CB_Entrainement.setSelected(false);
+			}
+		}
+		if(ae.getSource().equals(this.btnAnnuler)){
+			this.setVisible(false);
+		}
+		if(ae.getSource().equals(this.btnSauvegarder)){
+			Activite ac;
+			ac = cea.getListeActivite().get(LS_Events.getSelectedIndex());
+			
+			ac.setTitre(this.txtTitre.getText());
+			ac.setDate(this.textDate.getText());
+			ac.setHoraire(this.txtHoraire.getText());
 		}
 	}
 }
