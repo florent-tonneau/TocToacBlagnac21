@@ -121,6 +121,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		else if (arg0.getSource().equals(btnConnexion)){
 			if(comboBox.getSelectedIndex() == 0){//Sportif
 				btnConsulterListe.setEnabled(true);
+				btnEditerAct.setEnabled(false);
 			}
 			else if(comboBox.getSelectedIndex() == 1){//Entraineur
 				btnConsulterListe.setEnabled(true);
