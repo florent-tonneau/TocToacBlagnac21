@@ -1,19 +1,6 @@
 package Vue;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
-import javax.swing.JSplitPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JComboBox;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +11,15 @@ import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import Controleur.CtrlPrincipal;
 
@@ -33,6 +29,8 @@ import Controleur.CtrlPrincipal;
  */
 public class FenPrincipale extends JFrame implements ActionListener, WindowListener, FocusListener{
 
+	
+	private static final long serialVersionUID = 1L;
 	private CtrlPrincipal cp;
 	private JPanel contentPane;
 	private JTextField textField;
@@ -64,17 +62,18 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
 		
 		JP_Boutons = new JPanel();
 		contentPane.add(JP_Boutons, BorderLayout.CENTER);
 		JP_Boutons.setLayout(new GridLayout(4, 1, 0, 0));
 		
-		btnEditerAct = new JButton("Editer les Activit\u00E9s");
+		btnEditerAct = new JButton("Editer les Entraînements");
 		btnEditerAct.setEnabled(false);
 		JP_Boutons.add(btnEditerAct);
 		btnEditerAct.addActionListener(this);
 		
-		btnEditerEvent = new JButton("Editer les Evènements");
+		btnEditerEvent = new JButton("Editer les Evènements Ponctuels");
 		JP_Boutons.add(btnEditerEvent);
 		btnEditerEvent.setEnabled(false);		
 		btnEditerEvent.addActionListener(this);

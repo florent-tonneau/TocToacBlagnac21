@@ -12,11 +12,9 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
-import Vue.VueEditerActivites;
-import Vue.VueMembre;
-
 import Modele.Activite;
 import Modele.Membre;
+import Vue.VueEditerActivites;
 
 public class CtrlEditerAct {
 

@@ -9,22 +9,6 @@
 package Vue;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JDialog;
-import javax.swing.JSplitPane;
-import javax.swing.JList;
-import javax.swing.JButton;
-
-import Controleur.CtrlListeAct;
-import Modele.Activite;
-import Modele.Membre;
-//import Modele.Event;
-
-import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,12 +18,24 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.border.EmptyBorder;
+
+import Controleur.CtrlListeAct;
+import Modele.Activite;
+import Modele.Membre;
+
 public class VueMembre extends JDialog implements ActionListener, WindowListener, MouseListener{
 
 	//--------------------Attributs-------------------------
 	
 	private static final long serialVersionUID = -4738830974865641490L;
-	private JList LS_Events, LS_Participants;
+	private JList<String> LS_Events, LS_Participants;
 	private JButton btnAfficher, btnInscrire;
 	private JSplitPane SP_Back, SP_Left, SP_Right;
 	private CtrlListeAct cla;
@@ -80,9 +76,10 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 		SP_Back.setLeftComponent(SP_Left);
 		
 		btnAfficher = new JButton("Afficher Participants >>>");
+		btnAfficher.setEnabled(false);
 		SP_Left.setRightComponent(btnAfficher);
 		
-		LS_Events = new JList();
+		LS_Events = new JList<String>();
 		SP_Left.setLeftComponent(LS_Events);
 		
 		SP_Right = new JSplitPane();
@@ -93,7 +90,7 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 		SP_Right.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		SP_Back.setRightComponent(SP_Right);
 		
-		LS_Participants = new JList();
+		LS_Participants = new JList<String>();
 		SP_Right.setLeftComponent(LS_Participants);
 		
 		btnInscrire = new JButton("S'inscrire");
@@ -187,6 +184,10 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 			
 			this.majMembres();
 		}
+		else
+			if (LS_Events.getSelectedIndex() >= 0) {
+				btnAfficher.setEnabled(true);
+			}
 	}
 	
 	/**
@@ -198,29 +199,31 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 	 *Précondition: la liste des activités doit etre initialisée dans le controleur
 	 * */
 	public void majMembres(){
-		this.LS_Participants.removeAll();		
-			
-		Vector<String> v= new Vector<String>();
-		String s, membre = this.cla.getNomMembre();			
-		Vector<Membre> vm= new Vector<Membre>(this.cla.getMembreActivite(LS_Events.getSelectedIndex()));
-		boolean membreInscrit=false;
-			
-		for (int i =0; i<vm.size(); i++)
-		{
-				s = vm.elementAt(i).getNom();
-				v.add(s);
+		if (LS_Events.getSelectedIndex() >= 0 ) {
+			this.LS_Participants.removeAll();		
 				
-				if ( membre.equals(s))
-					membreInscrit=true;					
-		}	
-		
-		//Si l'utilisateur fait déjà parti des membres inscrits à l'activité
-		if ( membreInscrit == true)
-			this.btnInscrire.setText("Se désinscrire");
-		else
-			this.btnInscrire.setText("S'inscrire");
-		
-		this.LS_Participants.setListData(v);							
+			Vector<String> v= new Vector<String>();
+			String s, membre = this.cla.getNomMembre();			
+			Vector<Membre> vm= new Vector<Membre>(this.cla.getMembreActivite(LS_Events.getSelectedIndex()));
+			boolean membreInscrit=false;
+				
+			for (int i =0; i<vm.size(); i++)
+			{
+					s = vm.elementAt(i).getNom();
+					v.add(s);
+					
+					if ( membre.equals(s))
+						membreInscrit=true;					
+			}	
+			
+			//Si l'utilisateur fait déjà parti des membres inscrits à l'activité
+			if ( membreInscrit == true)
+				this.btnInscrire.setText("Se désinscrire");
+			else
+				this.btnInscrire.setText("S'inscrire");
+			
+			this.LS_Participants.setListData(v);
+		}
 		
 	}
 	

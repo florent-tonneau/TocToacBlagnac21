@@ -1,12 +1,6 @@
 package Vue;
 
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
-import javax.swing.JList;
-import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,26 +10,29 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
-
-import sun.org.mozilla.javascript.internal.ast.NewExpression;
+import javax.swing.border.EmptyBorder;
 
 import Controleur.CtrlEditerAct;
-import Controleur.CtrlListeAct;
 import Modele.Activite;
 import Modele.Membre;
 
 public class VueEditerActivites extends JDialog implements ActionListener, WindowListener, MouseListener{
 
+	
+	private static final long serialVersionUID = 1L;
 	//--------------------Attributs-------------------------
 	private JPanel contentPane;
 	private JTextField txtTitre, textDate, txtHoraire;
-	private JCheckBox CB_Entrainement;
-	private JList LS_Events;
+	private JList <String> LS_Events;
 	private JButton btnSauvegarder, btnAnnuler;
 	private CtrlEditerAct cea;
 	private JButton btnSupprimer, btnNouveau;
@@ -69,7 +66,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		SP_Central.setEnabled(true);
 		contentPane.add(SP_Central, BorderLayout.CENTER);
 
-		LS_Events = new JList();
+		LS_Events = new JList<String>();
 		SP_Central.setLeftComponent(LS_Events);
 		LS_Events.addMouseListener(this);
 
@@ -132,7 +129,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		btnSauvegarder.addActionListener(this);
 		btnSauvegarder.setEnabled(false);
 
-		btnAnnuler = new JButton("Annuler");
+		btnAnnuler = new JButton("Quitter");
 		SP_SauvAnn.setRightComponent(btnAnnuler);
 		btnAnnuler.addActionListener(this);
 
