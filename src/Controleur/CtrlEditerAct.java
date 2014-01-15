@@ -39,9 +39,9 @@ public class CtrlEditerAct {
 	 * */
 	public void demarrerControleurEditerAct (JFrame _fen) {
 		this.vea = new VueEditerActivites(_fen, "Edition", this);
-		this.vea.setVisible(true);
 		this.vea.majListeActivites();
 		this.vea.majActivite();
+		this.vea.setVisible(true);		
 	}
 	
 	/**

@@ -54,7 +54,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		this.mode = false;
 		
 		SP_Central = new JSplitPane();
-		SP_Central.setEnabled(false);
+		SP_Central.setEnabled(true);
 		contentPane.add(SP_Central, BorderLayout.CENTER);
 		
 		LS_Events = new JList();
@@ -65,6 +65,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		SP_Edition.setEnabled(false);
 		SP_Edition.setResizeWeight(0.2);
 		SP_Central.setRightComponent(SP_Edition);
+		SP_Central.setResizeWeight(0.4);
 		
 		JPanel JP_labels = new JPanel();
 		SP_Edition.setLeftComponent(JP_labels);
@@ -135,8 +136,6 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		btnNouveau = new JButton("Nouveau");
 		SP_AffNouv.setRightComponent(btnNouveau);
 		btnNouveau.addActionListener(this);
-		
-		majActivite();
 	}
 
 	public void majListeActivites(){

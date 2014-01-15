@@ -41,8 +41,8 @@ public class CtrlListeAct {
 	 * */
 	public void demarrerControleur(JFrame _fen){
 		this.vm = new VueMembre(_fen,"Vue membre", this);
-		this.vm.setVisible(true);
 		this.vm.majActivites();
+		this.vm.setVisible(true);		
 	}
 	
 	/**

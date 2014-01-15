@@ -53,16 +53,17 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 	 *Retour: fenetre initialisé
 	 *Précondition: Le controleur a initialisé sa liste d'activités et de membres
 	 * */
-	public VueMembre(JFrame _fen,String title, CtrlListeAct _cla) {
+	public VueMembre(JFrame _fen, String title, CtrlListeAct _cla) {
 		super(_fen,title, true);
 		this.cla=_cla;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setBounds(50, 50, 640, 480);
+		setLocationRelativeTo(_fen);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		setLocationRelativeTo(_fen);
+		
 		
 		SP_Back = new JSplitPane();
 		SP_Back.setEnabled(false);
@@ -103,7 +104,8 @@ public class VueMembre extends JDialog implements ActionListener, WindowListener
 		this.btnAfficher.addActionListener(this);
 		this.btnInscrire.addActionListener(this);
 		this.LS_Events.addMouseListener(this);
-		this.addWindowListener(this);
+		this.addWindowListener(this);		
+		
 	}
 
 
