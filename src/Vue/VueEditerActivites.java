@@ -39,14 +39,16 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 	private CtrlEditerAct cea;
 	private JButton btnSupprimer, btnNouveau;
 	private JSplitPane SP_Edition, SP_Central;
-	private boolean mode;
+	private boolean mode, modeEditionEntrainement;
 	private int selected;
 
-	public VueEditerActivites(JFrame _fen,String _title, CtrlEditerAct _cea) {
+	public VueEditerActivites(JFrame _fen,String _title, CtrlEditerAct _cea, boolean modeEditionEntrainement) {
 		super(_fen, _title, true);
+		this.modeEditionEntrainement=modeEditionEntrainement;
 		this.cea=_cea;		
 		this.setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(_fen);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -148,10 +150,20 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		for (int i =0; i<this.cea.getListeActivite().size(); i++)
 		{
 				a = this.cea.getListeActivite().get(i);
-				if(a.isEntrainement() == true){
-				s = ("Entraînement "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
-				v.add(s);
+				
+				if ( this.modeEditionEntrainement == true) {
+					if(a.isEntrainement() == true){
+						s = ("Entraînement "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
+						v.add(s);
+					}
 				}
+				else {
+					if(a.isEntrainement() == false){
+						s = ("Ponctuel "+a.getTitre()+ " " + a.getDate()+ " " + a.getHoraire());
+						v.add(s);
+					}
+				}
+				
 		}
 		this.LS_Events.setListData(v);
 		LS_Events.setSelectedIndex(0);
@@ -182,7 +194,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 		if(ae.getSource().equals(this.btnSauvegarder)){
 			if(mode){
 				Activite ac;
-				ac = new Activite("Titre", "JJ/MM/YYYY", "HH:MM", new Vector<Membre>(), true);
+				ac = new Activite("Titre", "JJ/MM/YYYY", "HH:MM", new Vector<Membre>(), this.modeEditionEntrainement);
 				ac.setTitre(this.txtTitre.getText());
 				ac.setDate(this.textDate.getText());
 				ac.setHoraire(this.txtHoraire.getText());
@@ -203,7 +215,7 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 			mode = true;
 			majChamps(mode);
 			Activite ac;
-			ac = new Activite("Titre", "JJ/MM/YYYY", "HH:MM", new Vector<Membre>(), true);
+			ac = new Activite("Titre", "JJ/MM/YYYY", "HH:MM", new Vector<Membre>(),this.modeEditionEntrainement);
 			
 			this.txtTitre.setText(ac.getTitre());
 			this.textDate.setText(ac.getDate());
@@ -227,13 +239,20 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
 	public void majActivite(){
 		Vector<Activite> ac;
 		ac = cea.getListeActivite();
-		Activite a=new Activite("","","",new Vector<Membre>(),true);
+		Activite a=new Activite("","","",new Vector<Membre>(),this.modeEditionEntrainement);
 		int j = -1;
 		
 		for (int i=0;i<ac.size();i++)
 		{
-			if (ac.get(i).isEntrainement() ==true )
-				j++;
+			if (this.modeEditionEntrainement == true) {
+				if (ac.get(i).isEntrainement() ==true )
+					j++;
+			}
+			else {
+				if (ac.get(i).isEntrainement() ==false )
+					j++;
+			}	
+			
 			
 			if (j==LS_Events.getSelectedIndex()) {
 				a=ac.get(i);

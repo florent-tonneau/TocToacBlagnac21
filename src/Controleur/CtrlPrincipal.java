@@ -20,15 +20,19 @@ public class CtrlPrincipal {
 	
 	public void ctrlEditerActivite (){
 		CtrlEditerAct cea = new CtrlEditerAct();
-		cea.demarrerControleurEditerAct(this.fp);
+		cea.demarrerControleurEditerAct(this.fp, true);
 	}
 	
 	public void ctrlStopFen () {
-		JOptionPane confirm = new JOptionPane();
-		int retour = confirm.showConfirmDialog(this.fp, "Voulez-vous quitter la fenetre principale ?");
+		int retour = JOptionPane.showConfirmDialog(this.fp, "Voulez-vous quitter la fenetre principale ?");
 		if (retour == 0)
 		{
 			System.exit(0);	
 		}
+	}
+	
+	public void ctrlEditerPonctuel () {
+		CtrlEditerAct cea = new CtrlEditerAct();
+		cea.demarrerControleurEditerAct(this.fp, false);
 	}
 }

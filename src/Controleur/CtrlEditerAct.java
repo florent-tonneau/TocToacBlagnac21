@@ -23,7 +23,7 @@ public class CtrlEditerAct {
 	private Vector<Activite> listeA; 
 	private VueEditerActivites vea;
 	
-	public CtrlEditerAct () {
+	public CtrlEditerAct () {		
 		vea=null;
 		this.listeA=new Vector<Activite>();			
 		chargerListeActivite();	
@@ -37,8 +37,8 @@ public class CtrlEditerAct {
 	 *Retour: -
 	 *Précondition: -
 	 * */
-	public void demarrerControleurEditerAct (JFrame _fen) {
-		this.vea = new VueEditerActivites(_fen, "Edition", this);
+	public void demarrerControleurEditerAct (JFrame _fen, boolean modeEditionEntrainement) {
+		this.vea = new VueEditerActivites(_fen, "Edition", this, modeEditionEntrainement);
 		this.vea.majListeActivites();
 		this.vea.majActivite();
 		this.vea.setVisible(true);		
