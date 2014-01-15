@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Vector;
+
+import javax.swing.JFrame;
+
 import Modele.Activite;
 import Modele.Membre;
 import Vue.VueMembre;
@@ -36,8 +39,8 @@ public class CtrlListeAct {
 	 *Retour: -
 	 *Précondition: -
 	 * */
-	public void demarrerControleur(){
-		this.vm = new VueMembre("Vue membre", this);
+	public void demarrerControleur(JFrame _fen){
+		this.vm = new VueMembre(_fen,"Vue membre", this);
 		this.vm.setVisible(true);
 		this.vm.majActivites();
 	}

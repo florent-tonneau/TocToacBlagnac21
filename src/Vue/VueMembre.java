@@ -34,7 +34,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
-public class VueMembre extends JFrame implements ActionListener, WindowListener, MouseListener{
+public class VueMembre extends JDialog implements ActionListener, WindowListener, MouseListener{
 
 	//--------------------Attributs-------------------------
 	
@@ -53,8 +53,8 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 	 *Retour: fenetre initialisé
 	 *Précondition: Le controleur a initialisé sa liste d'activités et de membres
 	 * */
-	public VueMembre(String title, CtrlListeAct _cla) {
-		super(title);
+	public VueMembre(JFrame _fen,String title, CtrlListeAct _cla) {
+		super(_fen,title, true);
 		this.cla=_cla;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setBounds(50, 50, 640, 480);
@@ -62,6 +62,7 @@ public class VueMembre extends JFrame implements ActionListener, WindowListener,
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		setLocationRelativeTo(_fen);
 		
 		SP_Back = new JSplitPane();
 		SP_Back.setEnabled(false);

@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Vector;
+
+import javax.swing.JFrame;
+
 import Vue.VueEditerActivites;
 import Vue.VueMembre;
 
@@ -34,8 +37,8 @@ public class CtrlEditerAct {
 	 *Retour: -
 	 *Précondition: -
 	 * */
-	public void demarrerControleurEditerAct () {
-		this.vea = new VueEditerActivites("Edition", this);
+	public void demarrerControleurEditerAct (JFrame _fen) {
+		this.vea = new VueEditerActivites(_fen, "Edition", this);
 		this.vea.setVisible(true);
 		this.vea.majListeActivites();
 		this.vea.majActivite();
@@ -130,7 +133,7 @@ public class CtrlEditerAct {
 	 *Précondition: la vue doit être active
 	 * */
 	public void ctrlStopVueEditerAct() {
-		this.vea.setVisible(false);
+		this.vea.setVisible(false);		
 		this.vea.dispose();
 	}
 	
@@ -147,19 +150,6 @@ public class CtrlEditerAct {
 		return this.listeA;
 	}
 	
-	/**
-	 *Nom:  editerActivite
-	 *Description:  permet d'editer une activite dans le vector d'activite
-	 *Entrée: index de l'activité à editer, activité à remplacer
-	 *Sortie: vector modifié
-	 *Retour: -
-	 *Précondition: -
-	 * */
-	public void editerActivite (int _index, Activite _act) {
-		this.listeA.setElementAt(_act, _index);
-		sauvegarderListeActivite(this.listeA);
-		this.vea.majListeActivites();
-	}
 	
 	/**
 	 *Nom:  supprimerActivite

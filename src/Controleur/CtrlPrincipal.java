@@ -15,12 +15,12 @@ public class CtrlPrincipal {
 	
 	public void ctrlConsultActivite (String _nomMembre) {
 		CtrlListeAct cla = new CtrlListeAct(_nomMembre);
-		cla.demarrerControleur();
+		cla.demarrerControleur(this.fp);
 	}
 	
 	public void ctrlEditerActivite (){
 		CtrlEditerAct cea = new CtrlEditerAct();
-		cea.demarrerControleurEditerAct();
+		cea.demarrerControleurEditerAct(this.fp);
 	}
 	
 	public void ctrlStopFen () {

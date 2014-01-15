@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -28,7 +29,7 @@ import Controleur.CtrlListeAct;
 import Modele.Activite;
 import Modele.Membre;
 
-public class VueEditerActivites extends JFrame implements ActionListener, WindowListener, MouseListener{
+public class VueEditerActivites extends JDialog implements ActionListener, WindowListener, MouseListener{
 
 	private JPanel contentPane;
 	private JTextField txtTitre, textDate, txtHoraire;
@@ -41,11 +42,11 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 	private boolean mode;
 	private int selected;
 
-	public VueEditerActivites(String _title, CtrlEditerAct _cea) {
-		super(_title);
-		this.cea=_cea;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	public VueEditerActivites(JFrame _fen,String _title, CtrlEditerAct _cea) {
+		super(_fen, _title, true);
+		this.cea=_cea;		
+		this.setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(_fen);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -159,20 +160,25 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 
 	public void windowActivated(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
-	public void windowClosing(WindowEvent e) {}
+	
+	public void windowClosing(WindowEvent e) {
+		this.cea.ctrlStopVueEditerAct();
+	}
+	
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
 	public void windowIconified(WindowEvent e) {}
 	public void windowOpened(WindowEvent e) {}
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource().equals(this.btnSupprimer)){
-			cea.getListeActivite().removeElementAt(selected);
 			
+			this.cea.supprimerActivite(selected);
 			majListeActivites();
 			majActivite();
+			
 		}
 		if(ae.getSource().equals(this.btnAnnuler)){
-			this.setVisible(false);
+			this.cea.ctrlStopVueEditerAct();
 		}
 		if(ae.getSource().equals(this.btnSauvegarder)){
 			if(mode){
@@ -181,12 +187,17 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 				ac.setTitre(this.txtTitre.getText());
 				ac.setDate(this.textDate.getText());
 				ac.setHoraire(this.txtHoraire.getText());
+				this.cea.ajouterActivite(ac);
 				
-				cea.getListeActivite().add(ac);
 				majListeActivites();
+				majActivite();
 				mode = false;
 				majChamps(mode);
 				btnSauvegarder.setEnabled(false);
+				btnSupprimer.setEnabled(true);
+				LS_Events.setEnabled(true);
+				
+				
 			}
 		}
 		if(ae.getSource().equals(this.btnNouveau)){
@@ -200,6 +211,8 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 			this.txtHoraire.setText(ac.getHoraire());
 			majListeActivites();
 			btnSauvegarder.setEnabled(true);
+			btnSupprimer.setEnabled(false);
+			LS_Events.setEnabled(false);
 		}
 	}
 	
@@ -208,7 +221,8 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 	public void mouseExited(MouseEvent arg0) {}
 	public void mousePressed(MouseEvent arg0) {}
 	public void mouseReleased(MouseEvent arg0) {
-		this.majActivite();
+		if ( LS_Events.isEnabled())
+			this.majActivite();
 	}
 	
 	public void majActivite(){
@@ -225,7 +239,7 @@ public class VueEditerActivites extends JFrame implements ActionListener, Window
 			if (j==LS_Events.getSelectedIndex()) {
 				a=ac.get(i);
 				selected = i;
-				i=ac.size();				
+				i=ac.size();	
 			}
 				
 		}
