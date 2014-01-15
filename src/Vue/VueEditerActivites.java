@@ -234,12 +234,15 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
         public void mouseExited(MouseEvent arg0) {}
         public void mousePressed(MouseEvent arg0) {}
         public void mouseReleased(MouseEvent arg0) {
-                if ( LS_Events.isEnabled())
+                if ( LS_Events.isEnabled() )
                         this.majActivite();
         }
         
         public void majActivite(){
-                Vector<Activite> ac;
+        	
+        	if ( LS_Events.getSelectedIndex() != -1){
+        		
+        	    Vector<Activite> ac;
                 ac = cea.getListeActivite();
                 Activite a=new Activite("","","",new Vector<Membre>(),this.modeEditionEntrainement);
                 int j = -1;
@@ -267,6 +270,12 @@ public class VueEditerActivites extends JDialog implements ActionListener, Windo
                 this.txtTitre.setText(a.getTitre());
                 this.textDate.setText(a.getDate());
                 this.txtHoraire.setText(a.getHoraire());
+        	}
+        	else {
+        		this.txtTitre.setText("");
+                this.textDate.setText("");
+                this.txtHoraire.setText("");
+        	}
         }
         
         public void majChamps(boolean mode){
