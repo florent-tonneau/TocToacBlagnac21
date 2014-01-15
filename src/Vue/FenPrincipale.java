@@ -45,6 +45,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 	private JSplitPane splitPane;
 	private JPanel JP_Boutons;
 	private JButton btnEditerAct;
+	private JButton btnEditerEvent;
 
 	
 	/**
@@ -72,6 +73,11 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 		btnEditerAct.setEnabled(false);
 		JP_Boutons.add(btnEditerAct);
 		btnEditerAct.addActionListener(this);
+		
+		btnEditerEvent = new JButton("Editer les Evènements");
+		JP_Boutons.add(btnEditerEvent);
+		btnEditerEvent.setEnabled(false);		
+		btnEditerEvent.addActionListener(this);
 		
 		btnConsulterListe = new JButton("Consulter la liste des Activités");
 		JP_Boutons.add(btnConsulterListe);
@@ -127,13 +133,19 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 			if(comboBox.getSelectedIndex() == 0){//Sportif
 				btnConsulterListe.setEnabled(true);
 				btnEditerAct.setEnabled(false);
+				btnEditerEvent.setEnabled(true);
+				
 			}
 			else if(comboBox.getSelectedIndex() == 1){//Entraineur
 				btnConsulterListe.setEnabled(true);
 				btnEditerAct.setEnabled(true);
+				btnEditerEvent.setEnabled(true);
+				
 			}
 			else{//Admin
 				btnConsulterListe.setEnabled(true);
+				btnEditerAct.setEnabled(true);
+				btnEditerEvent.setEnabled(true);
 			}
 		}
 		else {
@@ -142,6 +154,9 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 			}
 			if (arg0.getSource().equals(this.btnEditerAct)){
 				this.cp.ctrlEditerActivite();
+			}
+			if (arg0.getSource().equals(this.btnEditerEvent)) {
+				this.cp.ctrlEditerPonctuel();
 			}
 		}
 	}
@@ -160,7 +175,7 @@ public class FenPrincipale extends JFrame implements ActionListener, WindowListe
 	public void focusGained(FocusEvent arg0) {
 		btnEditerAct.setEnabled(false);
 		btnConsulterListe.setEnabled(false);
-		
+		btnEditerEvent.setEnabled(false);
 	}
 
 	

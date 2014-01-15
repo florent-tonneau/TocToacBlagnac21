@@ -119,6 +119,8 @@ public class CtrlEditerAct {
 			     membres.removeAllElements();
 			}
 			
+			
+			
 		} catch (FileNotFoundException e) {			
 			e.printStackTrace();
 		}	
